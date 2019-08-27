@@ -1,0 +1,33 @@
+ls /usr/local/share/ca-certificates/
+curl -O -s -k https://pki.ing.net/base64_certificates/rootg3_b64.cer
+curl -O -s -k https://pki.ing.net/base64_certificates/rootca_b64.cer
+curl -O -s -k https://pki.ing.net/base64_certificates/insg3_b64.cer
+cp -p insg3_b64.crt rootca_b64.crt rootg3_b64.crt /usr/local/share/ca-certificates/
+update-ca-certificates
+sudo apt-get install docker-ce=17.06.1~ce-0~ubuntu
+apt-get install python-docker python3-docker
+
+chown -R 1000:1000  jobs m2deps
+
+mkdir /home/vagrant/jobs /home/vagrant/m2deps
+
+chown vagrant:vagrant /home/vagrant/jobs /home/vagrant/m2deps
+
+
+cd ~/pr/chapter_day/dockerizing-jenkins ; docker-compose up -d ; docker-compose ps
+
+cd ~/pr/chapter_day/dockerizing-jenkins ; docker-compose stop
+
+
+docker run -it jenkins_myjenkins_1 --user root /bin/bash
+docker exec  -it  --user root e36265e470cf /bin/bash
+
+ansible all --list-hosts
+ansible -i inventory  all --list-hosts
+docker logs files_service-mysql-dev_1
+
+
+cd ~/virtual/g5_task ; docker-compose up -d
+docker-compose stop ; docker-compose rm ; rm -rf data
+pip install -U --user pyopenssl  docker-compose
+ansible-playbook -vvv -l localhost exec_compose.yml
