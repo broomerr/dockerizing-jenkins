@@ -14,8 +14,8 @@ services:
       - mysonar
       - artifactory
     volumes:
-     - "./jobs:/var/jenkins_home/jobs/"
-     - "./m2deps:/var/jenkins_home/.m2/repository/"
+     - "/home/vagrant/jobs:/var/jenkins_home/jobs/"
+     - "/home/vagrant/m2deps:/var/jenkins_home/.m2/repository/"
      - "./downloads:/var/jenkins_home/downloads"
     secrets:
      - artifactoryPassword
@@ -31,5 +31,3 @@ services:
 secrets:
   artifactoryPassword:
     file: ./secrets/artifactoryPassword
-
-
