@@ -13,8 +13,8 @@ echo "password" > ./secrets/artifactoryPassword
 #update older jenkins image, make sure it doesnt use cache
 docker-compose build --no-cache
 
-#run build stack
-docker-compose up &
+#run built stack
+docker-compose up -d
 
 #run elk stack
-docker-compose -f docker-compose-elk.yml up
+docker-compose -f docker-compose-elk.yml up -d
