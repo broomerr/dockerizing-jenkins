@@ -37,3 +37,10 @@ cd ~/virtual/g5_task ; docker-compose up -d
 docker-compose stop ; docker-compose rm ; rm -rf data
 pip install -U --user pyopenssl  docker-compose
 ansible-playbook -vvv -l localhost exec_compose.yml
+
+git config core.autocrlf input
+git config --global core.autocrlf input
+git config core.eol lf
+git config --global core.eol lf
+git config core.fileMode false
+git config --global core.fileMode false
