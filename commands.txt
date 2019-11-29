@@ -14,6 +14,15 @@ deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main
 sudo apt-get install docker-ce=17.06.1~ce-0~ubuntu
 apt-get install python-docker python3-docker
 
+apt-get install awscli
+
+77  apt-get remove docker docker-engine docker.io containerd runc docker-ce
+78  apt-get update
+79  apt-get install     apt-transport-https     ca-certificates     curl     gnupg-agent     software-properties-common
+80  apt-get install docker-ce docker-ce-cli containerd.io
+81  curl -L https://github.com/dvddarias/rdocker/raw/master/rdocker.sh > /usr/local/bin/rdocker
+82  chmod +x  /usr/local/bin/rdocker
+
 chown -R 1000:1000  jobs m2deps
 
 mkdir /home/vagrant/jobs /home/vagrant/m2deps
@@ -37,3 +46,6 @@ cd ~/virtual/g5_task ; docker-compose up -d
 docker-compose stop ; docker-compose rm ; rm -rf data
 pip install -U --user pyopenssl  docker-compose
 ansible-playbook -vvv -l localhost exec_compose.yml
+
+minikube start
+minikube stop

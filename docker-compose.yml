@@ -8,21 +8,22 @@ services:
     ports:
      - "8080:8080"
     depends_on:
-     - mysonar
+     #- mysonar
      - artifactory
     links:
-      - mysonar
+      #- mysonar
       - artifactory
     volumes:
+    # we use Vagrant on Windows and needs dirs outside windows mountpoint!
      - "/home/vagrant/jobs:/var/jenkins_home/jobs/"
      - "/home/vagrant/m2deps:/var/jenkins_home/.m2/repository/"
      - "./downloads:/var/jenkins_home/downloads"
     secrets:
      - artifactoryPassword
-  mysonar:
-    image: sonarqube:6.3.1
-    ports:
-     - "9000"
+  # mysonar:
+  #   image: sonarqube:6.3.1
+  #   ports:
+  #    - "9000"
   artifactory:
     image: docker.bintray.io/jfrog/artifactory-oss:5.4.4
     ports:
