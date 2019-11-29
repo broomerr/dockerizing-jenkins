@@ -49,3 +49,9 @@ ansible-playbook -vvv -l localhost exec_compose.yml
 
 minikube start
 minikube stop
+git config core.autocrlf input
+git config --global core.autocrlf input
+git config core.eol lf
+git config --global core.eol lf
+git config core.fileMode false
+git config --global core.fileMode false
