@@ -1,0 +1,67 @@
+---
+version: "3.5"
+# due custom network name
+
+# sudo docker run -d \
+# -e SONARQUBE_JDBC_USERNAME=sonar \
+# -e SONARQUBE_JDBC_PASSWORD=sonar \
+# -e SONARQUBE_JDBC_URL='jdbc:postgresql://pgsonar2:5432/sonarqube' \
+# -v sonarqube_data:/opt/sonarqube/data \
+# --network=sqnet \
+# --restart always \
+# -p 19000:9000 -p 19001:9001 \
+# --name sonarqube2  sonarqube
+#
+#
+# sudo docker run -d \
+#      -e POSTGRES_DB=sonarqube \
+#      -e POSTGRES_USER=sonar \
+#      -e POSTGRES_PASSWORD=sonar \
+# -v pgsonar_data:/var/lib/postgresql \
+# --network=sqnet \
+# --network-alias=pgsonar2 \
+# --name pgsonar2 postgres
+
+
+# Note: Your app’s network is given a name based on the “project name”, which is based on the name of the directory it lives in, in this case a prefix front_ was added
+
+services:
+  mysonar:
+    image: sonarqube:latest
+    ports:
+     # Sonarqube
+     - 19000:9000
+     # Elasticsearch
+     - 19001:9001
+    volumes:
+     - "sonarqube_data:/opt/sonarqube/data"
+    networks:
+      - sqnet
+    environment:
+     - SONARQUBE_JDBC_USERNAME=sonar
+     - SONARQUBE_JDBC_PASSWORD=sonar
+     - SONARQUBE_JDBC_URL=jdbc:postgresql://pgsonar2:5432/sonarqube
+    depends_on:
+     - pgsonar2
+    restart: unless-stopped
+  pgsonar2:
+    image: postgres:latest
+    ports:
+     - 5432
+    environment:
+     - POSTGRES_DB=sonarqube
+     - POSTGRES_USER=sonar
+     - POSTGRES_PASSWORD=sonar
+    volumes:
+     - "pgsonar_data:/var/lib/postgresql"
+    networks:
+      - sqnet
+    restart: unless-stopped
+
+networks:
+  sqnet:
+
+volumes:
+  sonarqube_data:
+  pgsonar_data:
+#    driver: local

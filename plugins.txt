@@ -35,3 +35,6 @@ build-name-setter
 config-file-provider
 gitlab-plugin
 windows-slaves
+sonar
+maven-plugin
+artifactory

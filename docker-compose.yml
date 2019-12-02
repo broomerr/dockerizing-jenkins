@@ -28,6 +28,9 @@ services:
     image: docker.bintray.io/jfrog/artifactory-oss:5.4.4
     ports:
      - "8081"
+    volumes:
+    # we use Vagrant on Windows and needs dirs outside windows mountpoint!
+     - "artifactory_data:/opt/jfrog/artifactory/"
 
 secrets:
   artifactoryPassword:
