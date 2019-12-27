@@ -1,0 +1,12 @@
+# in dockerfile use one  image as build for  another one.
+# https://vsupalov.com/cache-docker-build-dependencies-without-volume-mounting/
+FROM ubuntu as intermediate
+RUN mkdir -p /data
+RUN mkdir -p /result
+ADD data.tar /data/data.tar
+RUN #some expensive operation
+# finally, /result ends up with the final data
+
+FROM ubuntu
+COPY --from=intermediate /result /result
+# simply use the result
