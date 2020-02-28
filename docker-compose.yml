@@ -6,7 +6,7 @@ services:
       context: .
     image: myjenkins
     ports:
-     - "8080:8080"
+     - "8083:8080"
     depends_on:
      #- mysonar
      - artifactory
@@ -35,3 +35,7 @@ services:
 secrets:
   artifactoryPassword:
     file: ./secrets/artifactoryPassword
+
+# List of all named volumes used
+volumes:
+  artifactory_data:

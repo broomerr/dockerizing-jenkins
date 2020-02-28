@@ -38,3 +38,7 @@ windows-slaves
 sonar
 maven-plugin
 artifactory
+
+locale
+copyartifact
+promoted-builds
